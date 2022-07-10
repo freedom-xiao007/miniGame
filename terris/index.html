@@ -4,25 +4,26 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./script/game.js"></script>
-    <title>Document</title>
+    <title>俄罗斯方块小游戏</title>
   </head>
   <body>
     <div class="div">
       <h1>俄罗斯方块小游戏</h1>
-      <canvas id="game" class="game"></canvas>
+      <canvas id="game" class="game" width=150px height=400px></canvas>
       <div id="info" class="info">
         <h6>当前分数：0</h6>
         <canvas id="next_block" class="next_block"></canvas>
       </div>
     </div>
+
+    <script src="./script/game.js"></script>
   </body>
 </html>
 
 <style>
   .div {
     border-radius: 20px;
-    width: 410px;
+    width: 260px;
     height: 400px;
     margin: auto;
     position: absolute;
@@ -32,9 +33,7 @@
     bottom: 0;
   }
   .game {
-    background-color: black;
-    width: 300px;
-    height: 400px;
+    border: 1px black solid;
     float: left;
   }
   .info {
