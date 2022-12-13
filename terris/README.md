@@ -3,16 +3,17 @@
 
 ![](https://bkimg.cdn.bcebos.com/pic/64380cd7912397dd96df99415982b2b7d1a287d4?x-bce-process=image/resize,m_lfit,w_440,limit_1/format,f_auto)
 
-- [ ] 游戏界面初步
-- [ ] 七种方块显示
-  - [ ] 左L
-  - [ ] 右L
-  - [ ] I
-  - [ ] o
-  - [ ] 左S
-  - [ ] 右S
-  - [ ] T
-- [ ] 方块生成
+- [x] 游戏界面初步
+- [x] 七种方块显示
+  - [x] 左L
+  - [x] 右L
+  - [x] I
+  - [x] o
+  - [x] 左S
+  - [x] 右S
+  - [x] T
+- [x] 方块生成
+- [ ] 方块旋转
 - [ ] 方块移动
 - [ ] 方块消除
 - [ ] 右侧记分
