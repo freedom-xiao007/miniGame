@@ -13,6 +13,8 @@ const BLOCK_TYPE = {
 };
 const BLOCK_WIDTH = 10;
 const BLOCK_HEIGHT = 10;
+const WINDOW_WIDTH = 150;
+const WINDOW_HIGHT = 400;
 
 class Block {
     constructor(brush, x, y) {
@@ -65,6 +67,44 @@ class Block {
 
     rotate() {
         this.stateIndex += 1;
+    }
+
+    down() {
+        if (!this.isOutBound(this.x, this.y + BLOCK_HEIGHT)) {
+            this.y = this.y + BLOCK_HEIGHT;
+        }
+    }
+
+    left() {
+        if (!this.isOutBound(this.x - BLOCK_WIDTH, this.y + BLOCK_HEIGHT)) {
+            this.x = this.x - BLOCK_WIDTH;
+        }
+    }
+
+    right() {
+        if (!this.isOutBound(this.x + BLOCK_WIDTH, this.y + BLOCK_HEIGHT)) {
+            this.x = this.x + BLOCK_WIDTH;
+        }
+    }
+
+    isOutBound(x, y) {
+        let currentState = this.states[this.stateIndex];
+        for (let i=0; i < currentState.length; i++) {
+            for (let j=0; j < currentState[i].length; j++) {
+                if (currentState[i][j] == 1) {
+                    if ((x + j * BLOCK_WIDTH) < 0) {
+                        return true;
+                    }
+                    if ((x + j * BLOCK_WIDTH) + BLOCK_WIDTH > WINDOW_WIDTH) {
+                        return true;
+                    }
+                    if ((y + i * BLOCK_HEIGHT) + BLOCK_HEIGHT > WINDOW_HIGHT) {
+                        return true;
+                    }
+                }
+            }
+        } 
+        return false;
     }
 }
 

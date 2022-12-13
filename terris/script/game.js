@@ -7,10 +7,32 @@ var brush = screen.getContext("2d");
 var blocks = showAllBlock();
 
 document.onkeydown = function(e) {
+    brush.clearRect(0, 0, 150, 400);
     console.log(e);
-    if (e.code = "Space") {
+    if (e.code == "Space") {
         console.log("spin block");
         rotateBlocks(blocks);
+    }
+    else if(e.code == "ArrowDown") {
+        console.log("down");
+        for (var block of blocks) {
+            block.down();
+        }
+    }
+    else if (e.code == "ArrowLeft") {
+        console.log("left");
+        for (var block of blocks) {
+            block.left();
+        }
+    }
+    else if (e.code == "ArrowRight") {
+        console.log("up");
+        for (var block of blocks) {
+            block.right();
+        }
+    }
+    for (var block of blocks) {
+        block.show();
     }
 }
 
@@ -33,10 +55,6 @@ function rotateBlocks(blocks) {
     console.log("rotate blocks");
     for (var block of blocks) {
         block.rotate();
-    }
-    brush.clearRect(0, 0, 150, 400);
-    for (var block of blocks) {
-        block.show();
     }
 }
 
