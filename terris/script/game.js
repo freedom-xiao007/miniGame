@@ -4,17 +4,18 @@ var brush = screen.getContext("2d");
 
 // setInterval("gameCycle()", 1000);
 
-showAllBlock();
+var blocks = showAllBlock();
+
+document.onkeydown = function(e) {
+    console.log(e);
+    if (e.code = "Space") {
+        console.log("spin block");
+        rotateBlocks(blocks);
+    }
+}
+
 
 function showAllBlock() {
-    // let block = new Block_Left_L(brush, 30, 10);
-    // block = new Block_Right_L(brush, 70, 20);
-    // block = new Block_O(brush, 110, 10);
-    // block = new Block_Left_S(brush, 10, 70);
-    // block = new Block_Right_S(brush, 50, 60);
-    // block = new Block_T(brush, 90, 70);
-    // block = new Block_I(brush, 10, 90);
-
     let blocks = [
         new Block_Left_L(brush, 30, 10),
         new Block_Right_L(brush, 70, 20),
@@ -22,19 +23,21 @@ function showAllBlock() {
         new Block_Left_S(brush, 10, 70),
         new Block_Right_S(brush, 50, 60),
         new Block_T(brush, 90, 70),
-        new Block_I(brush, 10, 90)
+        new Block_I(brush, 10, 110)
     ]
 
-  // currentBlock = createI(10, 90);
-  // console.log("origin block", currentBlock);
-  // document.onkeydown = function(e) {
-  //   console.log(e);
-  //   if (e.code = "Space") {
-  //     currentBlock.spin();
-  //     drawBlock(currentBlock);
-  //     console.log("spin block", currentBlock);
-  //   }
-  // }
+    return blocks;
+}
+
+function rotateBlocks(blocks) {
+    console.log("rotate blocks");
+    for (var block of blocks) {
+        block.rotate();
+    }
+    brush.clearRect(0, 0, 150, 400);
+    for (var block of blocks) {
+        block.show();
+    }
 }
 
 function gameCycle() {
@@ -71,4 +74,6 @@ function createBlock() {
   }
 }
 
-function moveBlock() {}
+function moveBlock() {
+
+}
