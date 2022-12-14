@@ -3,10 +3,10 @@ console.log(screen);
 let brush = screen.getContext("2d");
 
 let currentBlock = null;
-setInterval("gameCycle()", 1000);
+let gameMap = new GameMap(WINDOW_WIDTH, WINDOW_HEIGHT, BLOCK_SIZE, brush);
+setInterval("gameCycle()", 50);
 
 document.onkeydown = function(e) {
-    brush.clearRect(0, 0, 150, 400);
     console.log(e);
     if (e.code === "Space") {
         console.log("spin block");
@@ -27,39 +27,19 @@ document.onkeydown = function(e) {
     currentBlock.show();
 }
 
-
-function showAllBlock() {
-    let blocks = [
-        new Block_Left_L(brush, 30, 10),
-        new Block_Right_L(brush, 70, 20),
-        new Block_O(brush, 110, 10),
-        new Block_Left_S(brush, 10, 70),
-        new Block_Right_S(brush, 50, 60),
-        new Block_T(brush, 90, 70),
-        new Block_I(brush, 10, 110)
-    ]
-
-    return blocks;
-}
-
-function rotateBlocks(blocks) {
-    console.log("rotate blocks");
-    for (let block of blocks) {
-        block.rotate();
-    }
-}
-
 function gameCycle() {
   brush.clearRect(0, 0, 150, 400);
   if (currentBlock == null) {
       createBlock();
   } else {
-      if (!currentBlock.down()) {
+      if (!currentBlock.autoDown()) {
+          gameMap.addBlock(currentBlock);
           currentBlock = null;
       } else {
           currentBlock.show();
       }
   }
+  gameMap.show();
 }
 
 function createBlock() {

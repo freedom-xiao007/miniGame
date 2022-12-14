@@ -1,0 +1,5 @@
+const BLOCK_WIDTH = 10;
+const BLOCK_HEIGHT = 10;
+const WINDOW_WIDTH = 150;
+const WINDOW_HEIGHT = 400;
+const BLOCK_SIZE = 10;

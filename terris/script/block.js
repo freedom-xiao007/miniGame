@@ -8,10 +8,6 @@ const BLOCK_TYPE = {
     RIGHT_S: 6,
     T: 7,
 };
-const BLOCK_WIDTH = 10;
-const BLOCK_HEIGHT = 10;
-const WINDOW_WIDTH = 150;
-const WINDOW_HEIGHT = 400;
 
 class Block {
     constructor(brush, x, y) {
@@ -21,6 +17,7 @@ class Block {
         this.stateIndex = 0;
         this.states = [];
         this.color = "";
+        this.beforeTimeStamp = new Date().getTime();
     }
 
     drawSolid(x1, y1, x2, y2, x3, y3, x4, y4, color) {
@@ -73,6 +70,15 @@ class Block {
             return true;
         }
         return false;
+    }
+
+    autoDown() {
+        let currentTimeStamp = new Date().getTime();
+        if (currentTimeStamp - this.beforeTimeStamp >= 1000){
+            this.beforeTimeStamp = currentTimeStamp;
+            return this.down();
+        }
+        return true;
     }
 
     left() {
