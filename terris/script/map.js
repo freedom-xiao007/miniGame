@@ -21,10 +21,18 @@ class GameMap {
                 if (currentState[i][j] === 1) {
                     let currentX = block.x + j * BLOCK_WIDTH;
                     let currentY = block.y + i * BLOCK_HEIGHT;
-                    this.map[currentY / this.blockSize][currentX / this.blockSize] = block.color;
+                    let row = currentY / this.blockSize;
+                    let col = currentX / this.blockSize;
+                    this.map[row][col] = block.color;
                 }
             }
         }
+    }
+
+    collision(x, y) {
+        let row = y / this.blockSize;
+        let col = x / this.blockSize;
+        return this.map[row][col] !== "";
     }
 
     show() {

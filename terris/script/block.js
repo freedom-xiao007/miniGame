@@ -21,7 +21,6 @@ class Block {
     }
 
     drawSolid(x1, y1, x2, y2, x3, y3, x4, y4, color) {
-        console.log("draw block");
         this.brush.fillStyle = color;
         this.brush.fillRect(x1, y1, BLOCK_WIDTH, BLOCK_HEIGHT);
         this.brush.fillRect(x2, y2, BLOCK_WIDTH, BLOCK_HEIGHT);
@@ -39,7 +38,6 @@ class Block {
     }
 
     show() {
-        console.log("index:", this.stateIndex);
         if (this.stateIndex >= this.states.length) {
             this.stateIndex = 0;
         }
@@ -65,7 +63,7 @@ class Block {
     }
 
     down() {
-        if (!this.isOutBound(this.x, this.y + BLOCK_HEIGHT)) {
+        if (!this.isOutBoundOrCollision(this.x, this.y + BLOCK_HEIGHT)) {
             this.y = this.y + BLOCK_HEIGHT;
             return true;
         }
@@ -82,29 +80,35 @@ class Block {
     }
 
     left() {
-        if (!this.isOutBound(this.x - BLOCK_WIDTH, this.y + BLOCK_HEIGHT)) {
+        if (!this.isOutBoundOrCollision(this.x - BLOCK_WIDTH, this.y + BLOCK_HEIGHT)) {
             this.x = this.x - BLOCK_WIDTH;
         }
     }
 
     right() {
-        if (!this.isOutBound(this.x + BLOCK_WIDTH, this.y + BLOCK_HEIGHT)) {
+        if (!this.isOutBoundOrCollision(this.x + BLOCK_WIDTH, this.y + BLOCK_HEIGHT)) {
             this.x = this.x + BLOCK_WIDTH;
         }
     }
 
-    isOutBound(x, y) {
+    isOutBoundOrCollision(x, y) {
         let currentState = this.states[this.stateIndex];
         for (let i=0; i < currentState.length; i++) {
             for (let j=0; j < currentState[i].length; j++) {
                 if (currentState[i][j] === 1) {
-                    if ((x + j * BLOCK_WIDTH) < 0) {
+                    let locX = x + j * BLOCK_WIDTH;
+                    let locY = y + i * BLOCK_HEIGHT;
+                    if (locX < 0) {
                         return true;
                     }
-                    if ((x + j * BLOCK_WIDTH) + BLOCK_WIDTH > WINDOW_WIDTH) {
+                    if (locX + BLOCK_WIDTH > WINDOW_WIDTH) {
                         return true;
                     }
-                    if ((y + i * BLOCK_HEIGHT) + BLOCK_HEIGHT > WINDOW_HEIGHT) {
+                    if (locY + BLOCK_HEIGHT > WINDOW_HEIGHT) {
+                        return true;
+                    }
+                    if (gameMap.collision(locX, locY)) {
+                        console.log("collision", locX, locY);
                         return true;
                     }
                 }
