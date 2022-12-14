@@ -1,6 +1,3 @@
-function add(num1, num2) {
-    return num1 + num2;
-}
 
 const BLOCK_TYPE = {
     I: 1,
@@ -14,7 +11,7 @@ const BLOCK_TYPE = {
 const BLOCK_WIDTH = 10;
 const BLOCK_HEIGHT = 10;
 const WINDOW_WIDTH = 150;
-const WINDOW_HIGHT = 400;
+const WINDOW_HEIGHT = 400;
 
 class Block {
     constructor(brush, x, y) {
@@ -23,6 +20,7 @@ class Block {
         this.y = y;
         this.stateIndex = 0;
         this.states = [];
+        this.color = "";
     }
 
     drawSolid(x1, y1, x2, y2, x3, y3, x4, y4, color) {
@@ -53,7 +51,7 @@ class Block {
         let currentState = this.states[this.stateIndex];
         for (let i=0; i < currentState.length; i++) {
             for (let j=0; j < currentState[i].length; j++) {
-                if (currentState[i][j] == 1) {
+                if (currentState[i][j] === 1) {
                     box.push([this.x + j * BLOCK_WIDTH, this.y + i * BLOCK_HEIGHT]);
                 }
             }
@@ -72,7 +70,9 @@ class Block {
     down() {
         if (!this.isOutBound(this.x, this.y + BLOCK_HEIGHT)) {
             this.y = this.y + BLOCK_HEIGHT;
+            return true;
         }
+        return false;
     }
 
     left() {
@@ -91,19 +91,19 @@ class Block {
         let currentState = this.states[this.stateIndex];
         for (let i=0; i < currentState.length; i++) {
             for (let j=0; j < currentState[i].length; j++) {
-                if (currentState[i][j] == 1) {
+                if (currentState[i][j] === 1) {
                     if ((x + j * BLOCK_WIDTH) < 0) {
                         return true;
                     }
                     if ((x + j * BLOCK_WIDTH) + BLOCK_WIDTH > WINDOW_WIDTH) {
                         return true;
                     }
-                    if ((y + i * BLOCK_HEIGHT) + BLOCK_HEIGHT > WINDOW_HIGHT) {
+                    if ((y + i * BLOCK_HEIGHT) + BLOCK_HEIGHT > WINDOW_HEIGHT) {
                         return true;
                     }
                 }
             }
-        } 
+        }
         return false;
     }
 }
