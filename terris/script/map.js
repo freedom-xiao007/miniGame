@@ -27,6 +27,42 @@ class GameMap {
                 }
             }
         }
+
+        let clearInfo = this.removeRow();
+        if (clearInfo[0] > 0) {
+            this.remainDown(clearInfo[0], clearInfo[1]);
+        }
+    }
+
+    removeRow() {
+        let clearNum = 0
+        let clearAmount = 0
+        for (let i=this.height-1; i >= 0; i--) {
+            if (this.isFull(this.map[i])) {
+                if (clearNum === 0) {
+                    clearNum = i;
+                }
+                clearAmount += 1;
+            }
+        }
+        return [clearNum, clearAmount]
+    }
+
+    isFull(rowData) {
+        for (let i=0; i < this.width; i++) {
+            if (rowData[i] === "") {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    remainDown(clearNum, clearAmount) {
+        for (let i=clearNum; i >= clearAmount; i--) {
+            for (let j=0; j < this.width; j++) {
+                this.map[i][j] = this.map[i - clearAmount][j];
+            }
+        }
     }
 
     collision(x, y) {
