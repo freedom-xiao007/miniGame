@@ -5,6 +5,8 @@ let brush = screen.getContext("2d");
 let nextBlockShow = document.getElementById("next_block");
 let nextBlockBrush = nextBlockShow.getContext("2d");
 
+let scoreText = document.getElementById("score");
+
 let score = 0;
 let currentBlock = null;
 let nextBlock = null;
@@ -54,6 +56,7 @@ function gameCycle() {
 
 function showScore() {
     console.log("score:", score);
+    scoreText.textContent="score: " + score;
 }
 
 function showNextBlock() {
