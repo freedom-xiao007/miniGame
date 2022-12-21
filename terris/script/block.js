@@ -20,24 +20,24 @@ class Block {
         this.beforeTimeStamp = new Date().getTime();
     }
 
-    drawSolid(x1, y1, x2, y2, x3, y3, x4, y4, color) {
-        this.brush.fillStyle = color;
-        this.brush.fillRect(x1, y1, BLOCK_WIDTH, BLOCK_HEIGHT);
-        this.brush.fillRect(x2, y2, BLOCK_WIDTH, BLOCK_HEIGHT);
-        this.brush.fillRect(x3, y3, BLOCK_WIDTH, BLOCK_HEIGHT);
-        this.brush.fillRect(x4, y4, BLOCK_WIDTH, BLOCK_HEIGHT);
-        this.drawOutline(x1, y1, x2, y2, x3, y3, x4, y4);
+    drawSolid(x1, y1, x2, y2, x3, y3, x4, y4, color, brush) {
+        brush.fillStyle = color;
+        brush.fillRect(x1, y1, BLOCK_WIDTH, BLOCK_HEIGHT);
+        brush.fillRect(x2, y2, BLOCK_WIDTH, BLOCK_HEIGHT);
+        brush.fillRect(x3, y3, BLOCK_WIDTH, BLOCK_HEIGHT);
+        brush.fillRect(x4, y4, BLOCK_WIDTH, BLOCK_HEIGHT);
+        this.drawOutline(x1, y1, x2, y2, x3, y3, x4, y4, brush);
     }
 
-    drawOutline(x1, y1, x2, y2, x3, y3, x4, y4) {
-        this.brush.fillStyle = "black";
-        this.brush.strokeRect(x1, y1, BLOCK_WIDTH, BLOCK_HEIGHT);
-        this.brush.strokeRect(x2, y2, BLOCK_WIDTH, BLOCK_HEIGHT);
-        this.brush.strokeRect(x3, y3, BLOCK_WIDTH, BLOCK_HEIGHT);
-        this.brush.strokeRect(x4, y4, BLOCK_WIDTH, BLOCK_HEIGHT);
+    drawOutline(x1, y1, x2, y2, x3, y3, x4, y4, brush) {
+        brush.fillStyle = "black";
+        brush.strokeRect(x1, y1, BLOCK_WIDTH, BLOCK_HEIGHT);
+        brush.strokeRect(x2, y2, BLOCK_WIDTH, BLOCK_HEIGHT);
+        brush.strokeRect(x3, y3, BLOCK_WIDTH, BLOCK_HEIGHT);
+        brush.strokeRect(x4, y4, BLOCK_WIDTH, BLOCK_HEIGHT);
     }
 
-    show() {
+    show(x, y, brush) {
         if (this.stateIndex >= this.states.length) {
             this.stateIndex = 0;
         }
@@ -47,7 +47,7 @@ class Block {
         for (let i=0; i < currentState.length; i++) {
             for (let j=0; j < currentState[i].length; j++) {
                 if (currentState[i][j] === 1) {
-                    box.push([this.x + j * BLOCK_WIDTH, this.y + i * BLOCK_HEIGHT]);
+                    box.push([x + j * BLOCK_WIDTH, y + i * BLOCK_HEIGHT]);
                 }
             }
         }
@@ -55,7 +55,7 @@ class Block {
             console.error("block data error!");
             return;
         }
-        this.drawSolid(box[0][0], box[0][1], box[1][0], box[1][1], box[2][0], box[2][1], box[3][0], box[3][1], this.color);
+        this.drawSolid(box[0][0], box[0][1], box[1][0], box[1][1], box[2][0], box[2][1], box[3][0], box[3][1], this.color, brush);
     }
 
     rotate() {
@@ -136,7 +136,7 @@ class Block_I extends Block {
                 [0, 0 , 0, 0],
             ],
         ];
-        this.show();
+        this.show(x, y, this.brush);
     }
 }
 
@@ -166,7 +166,7 @@ class Block_Left_L extends Block {
                 [1, 1, 0],
             ],
         ];
-        this.show();
+        this.show(x, y, this.brush);
     }
 }
 
@@ -196,7 +196,7 @@ class Block_Right_L extends Block {
                 [1, 1, 1],
             ],
         ];
-        this.show();
+        this.show(x, y, this.brush);
     }
 }
 
@@ -210,7 +210,7 @@ class Block_O extends Block {
                 [1, 1]
             ]
         ];
-        this.show();
+        this.show(x, y, this.brush);
     }
 }
 
@@ -230,7 +230,7 @@ class Block_Left_S extends Block {
                 [0, 0, 1],
             ]
         ];
-        this.show();
+        this.show(x, y, this.brush);
     }
 }
 
@@ -250,7 +250,7 @@ class Block_Right_S extends Block {
                 [0, 1, 0],
             ]
         ];
-        this.show();
+        this.show(x, y, this.brush);
     }
 }
 
@@ -280,6 +280,6 @@ class Block_T extends Block {
                 [0, 1, 0],
             ],
         ];
-        this.show();
+        this.show(x, y, this.brush);
     }
 }

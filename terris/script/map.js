@@ -32,6 +32,7 @@ class GameMap {
         if (clearInfo[0] > 0) {
             this.remainDown(clearInfo[0], clearInfo[1]);
         }
+        return clearInfo[1];
     }
 
     removeRow() {
