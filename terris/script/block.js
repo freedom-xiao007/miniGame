@@ -70,9 +70,9 @@ class Block {
         return false;
     }
 
-    autoDown() {
+    autoDown(speed) {
         let currentTimeStamp = new Date().getTime();
-        if (currentTimeStamp - this.beforeTimeStamp >= 1000){
+        if (currentTimeStamp - this.beforeTimeStamp >= speed){
             this.beforeTimeStamp = currentTimeStamp;
             return this.down();
         }

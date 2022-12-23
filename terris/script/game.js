@@ -7,6 +7,7 @@ let nextBlockBrush = nextBlockShow.getContext("2d");
 
 let scoreText = document.getElementById("score");
 
+let speed = 1000;
 let score = 0;
 let currentBlock = null;
 let nextBlock = null;
@@ -47,11 +48,15 @@ function gameCycle() {
         currentBlock = nextBlock;
         nextBlock = createBlock();
     } else {
-        if (!currentBlock.autoDown()) {
-          score += gameMap.addBlock(currentBlock);
-          currentBlock = null;
+        if (!currentBlock.autoDown(speed)) {
+            let inc = gameMap.addBlock(currentBlock);
+            score += inc;
+            currentBlock = null;
+            if (inc > 0 && speed > 1) {
+                speed -= 500;
+            }
         } else {
-          currentBlock.show(currentBlock.x, currentBlock.y, currentBlock.brush);
+            currentBlock.show(currentBlock.x, currentBlock.y, currentBlock.brush);
         }
     }
     gameMap.show();
