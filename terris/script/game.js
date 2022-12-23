@@ -37,26 +37,35 @@ document.onkeydown = function(e) {
 }
 
 function gameCycle() {
-  brush.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-  if (currentBlock == null) {
-      currentBlock = nextBlock;
-      nextBlock = createBlock();
-  } else {
-      if (!currentBlock.autoDown()) {
+    if (gameMap.isOver()) {
+        showGameOver();
+        return;
+    }
+
+    brush.clearRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+    if (currentBlock == null) {
+        currentBlock = nextBlock;
+        nextBlock = createBlock();
+    } else {
+        if (!currentBlock.autoDown()) {
           score += gameMap.addBlock(currentBlock);
           currentBlock = null;
-      } else {
+        } else {
           currentBlock.show(currentBlock.x, currentBlock.y, currentBlock.brush);
-      }
-  }
-  gameMap.show();
-  showNextBlock();
-  showScore();
+        }
+    }
+    gameMap.show();
+    showNextBlock();
+    showScore();
 }
 
 function showScore() {
     console.log("score:", score);
     scoreText.textContent="score: " + score;
+}
+
+function showGameOver() {
+    scoreText.textContent="game over: " + score;
 }
 
 function showNextBlock() {

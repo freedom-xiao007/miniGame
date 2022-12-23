@@ -84,4 +84,13 @@ class GameMap {
             }
         }
     }
+
+    isOver() {
+        for (let i=0; i < this.width; i++) {
+            if (this.map[0][i] !== "") {
+                return true;
+            }
+        }
+        return false;
+    }
 }
